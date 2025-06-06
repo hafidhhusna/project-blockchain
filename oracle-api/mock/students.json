@@ -1,0 +1,12 @@
+{
+    "12345" : {
+        "studentId" : "12345",
+        "gpa" : 3.35,
+        "isActive" : false
+    },
+        "43210" : {
+        "studentId" : "4321",
+        "gpa" : 4.00,
+        "isActive" : false
+    }
+}
