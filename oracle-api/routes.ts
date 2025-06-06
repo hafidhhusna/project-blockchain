@@ -59,34 +59,6 @@ router.post("/update/:studentId", async (req: Request, res: Response): Promise<a
   }
 });
 
-// Sync both register + update
-router.post("/sync/:studentId", async (req: Request, res: Response): Promise<any> => {
-  const studentId = req.params.studentId;
-  const student = (students as Record<string, any>)[studentId];
-
-  if (!student) {
-    return res.status(404).json({ error: "Student not found" });
-  }
-
-  const address = getOracleAddress();
-
-  try {
-    const tx1 = await registerStudent(address, student.studentId);
-    const tx2 = await updateAcademicStatus(address, student.gpa, student.isActive);
-
-    return res.status(200).json({
-      status: "success",
-      txHashRegister: tx1.hash,
-      txHashUpdate: tx2.hash,
-      student,
-      address,
-    });
-  } catch (err: any) {
-    console.error("Sync Error:", err.message);
-    return res.status(500).json({ error: err.message });
-  }
-});
-
 // Get student data from blockchain
 router.get("/student/:address", async (req: Request, res: Response): Promise<any> => {
   const address = req.params.address;
